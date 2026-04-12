@@ -15,4 +15,16 @@ async function generateResponse(prompt) {
   return (res && typeof res.text === "string" ? res.text : "").trim();
 }
 
-module.exports={generateResponse};
+async function generatevector(content){
+  const response = await ai.models.embedContent({
+      model: 'gemini-embedding-001',
+      contents: content,
+      config: {
+        outputDimensionality: 768
+      }
+  });
+
+  return response.embeddings;
+}
+
+module.exports={generateResponse,generatevector};
