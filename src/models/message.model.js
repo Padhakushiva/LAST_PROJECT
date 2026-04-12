@@ -1,0 +1,30 @@
+const { Chat } = require('@google/genai')
+const mongoose=require('mongoose')
+
+const messageSchema=new mongoose.Schema({
+    user:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"User",
+    },
+    Chat:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"Chat",
+    },
+    content:{
+        type:String,
+        required:true,
+    },
+    role:{
+        type:String,
+        enum:["user","model","system"],
+        default:"user"
+    }
+},{
+    timestamps:true
+}
+)
+
+
+const messageModel=mongoose.model("Message",messageSchema)
+
+module.exports=messageModel
